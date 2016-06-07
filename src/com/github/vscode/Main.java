@@ -9,7 +9,6 @@ public class Main {
 
         List<String> list = Arrays.asList("React", "Angular", "Ember");
         list.stream().filter(x -> x.equals("Angular")).forEach(System.out::println);
-
     }
 
 }

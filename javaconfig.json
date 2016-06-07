@@ -1,5 +1,5 @@
 {
     "sourcePath": ["src"],
     "classPathFile": "classpath.txt",
-    "outputDirectory": "out"
+    "outputDirectory": "target/classes"
 }

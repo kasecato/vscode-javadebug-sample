@@ -10,9 +10,9 @@
             "startupClass": "${fileBasename}", // ${fileBasename}: the current opened file's basename
             "options": [
                 "-classpath",
-                "\"${fileDirname};.\"" // ${fileDirname}: the current opened file's dirname
+                "${fileDirname}" // ${fileDirname}: the current opened file's dirname
             ],
-            "jdkPath": "C:\\Program Files\\Java\\jdk1.8.0_91\\bin",
+            "jdkPath": "/usr/bin",
             "preLaunchTask": "build"
         },
         {
@@ -27,7 +27,7 @@
                 "\"${fileDirname};.\""
             ],
             "externalConsole": true,
-            "jdkPath": "C:\\Program Files\\Java\\jdk1.8.0_91\\bin",
+            "jdkPath": "/usr/bin",
             "preLaunchTask": "build"
         }
     ]

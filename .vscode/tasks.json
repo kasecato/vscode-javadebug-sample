@@ -1,6 +1,6 @@
 {
     "version": "0.1.0",
-    "command": "C:\\Program Files\\Java\\jdk1.8.0_91\\bin\\javac",
+    "command": "/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/bin/javac",
     "isShellCommand": true,
     "showOutput": "always",
     "isWatching": true,

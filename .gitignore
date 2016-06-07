@@ -1,4 +1,5 @@
 *.class
 target
 *.log
+*.lck
 classpath.txt
