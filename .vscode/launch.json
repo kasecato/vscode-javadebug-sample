@@ -1,0 +1,34 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Java",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "cwd": "${fileDirname}", // ${fileDirname}: the current opened file's dirname
+            "startupClass": "${fileBasename}", // ${fileBasename}: the current opened file's basename
+            "options": [
+                "-classpath",
+                "\"${fileDirname};.\"" // ${fileDirname}: the current opened file's dirname
+            ],
+            "jdkPath": "C:\\Program Files\\Java\\jdk1.8.0_91\\bin",
+            "preLaunchTask": "build"
+        },
+        {
+            "name": "Java Console App",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "cwd": "${fileDirname}",
+            "startupClass": "${fileBasename}",
+            "options": [
+                "-classpath",
+                "\"${fileDirname};.\""
+            ],
+            "externalConsole": true,
+            "jdkPath": "C:\\Program Files\\Java\\jdk1.8.0_91\\bin",
+            "preLaunchTask": "build"
+        }
+    ]
+}
