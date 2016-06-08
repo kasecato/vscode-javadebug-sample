@@ -7,13 +7,13 @@
             "request": "launch",
             "stopOnEntry": true,
             "cwd": "${fileDirname}", // ${fileDirname}: the current opened file's dirname
-            "startupClass": "${fileBasename}", // ${fileBasename}: the current opened file's basename
+            "startupClass": "com.github.vscode.${fileBasename}", // ${fileBasename}: the current opened file's basename
             "options": [
                 "-classpath",
-                "${fileDirname}" // ${fileDirname}: the current opened file's dirname
+                "${workspaceRoot}/target/classes" // ${fileDirname}: the current opened file's dirname
             ],
-            "jdkPath": "/usr/bin",
-            "preLaunchTask": "build"
+            "jdkPath": "${env.JAVA_HOME}/bin", // ${env.JAVA_HOME}: reference environment variables
+            "preLaunchTask": "compile"
         },
         {
             "name": "Java Console App",
@@ -27,8 +27,8 @@
                 "\"${fileDirname};.\""
             ],
             "externalConsole": true,
-            "jdkPath": "/usr/bin",
-            "preLaunchTask": "build"
+            "jdkPath": "${env.JAVA_HOME}/bin",
+            "preLaunchTask": "compile"
         }
     ]
 }

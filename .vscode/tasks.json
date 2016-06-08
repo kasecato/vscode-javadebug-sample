@@ -1,14 +1,41 @@
 {
-    "version": "0.1.0",
-    "command": "/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/bin/javac",
-    "isShellCommand": true,
-    "showOutput": "always",
-    "isWatching": true,
-    "suppressTaskName": true,
-    "tasks": [
-        {
-            "taskName": "build",
-            "args": ["-g", "${file}"]
-        } // ${file}: the current opened file
-    ]
+  "version": "0.1.0",
+  "windows": {
+  },
+  "osx": {
+      "options": {
+          "env": {
+              "JAVA_HOME": "/usr" // OSX: /usr/bin/java
+          }
+      }
+  },
+  "command": "mvn",
+  "isShellCommand": true,
+  "args": [
+//    "-DskipTests"
+  ],
+  "showOutput": "always",
+  "tasks": [
+    {
+      "taskName": "clean"
+    },
+    {
+      "taskName": "compile"
+    },
+    {
+      "taskName": "test"
+    },
+    {
+      "taskName": "package"
+    },
+    {
+      "taskName": "verify"
+    },
+    {
+      "taskName": "spring-boot:run",
+      "args": [
+        "-Drun.profiles=dev"
+      ]
+    }
+  ]
 }

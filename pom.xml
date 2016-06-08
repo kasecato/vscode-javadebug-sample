@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.k--kato</groupId>
-    <artifactId>vscodejava</artifactId>
+    <groupId>com.github.vscode</groupId>
+    <artifactId>vscode-debugger</artifactId>
     <version>0.1.0</version>
-    <name>vscodejava</name>
+    <name>vscode-debugger</name>
 
     <licenses>
         <license>
@@ -70,7 +70,6 @@
                         <configuration>
                             <verbose>true</verbose>
                             <fork>true</fork>
-                            <executable>/usr/bin/javac</executable>
                             <compilerVersion>1.8</compilerVersion>
                             <source>1.8</source>
                             <target>1.8</target>
