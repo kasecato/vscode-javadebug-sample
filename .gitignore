@@ -3,3 +3,4 @@ target
 *.log
 *.lck
 classpath.txt
+*.log.*

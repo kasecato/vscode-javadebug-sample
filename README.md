@@ -16,11 +16,6 @@
   "windows": {
   },
   "osx": {
-      "options": {
-          "env": {
-              "JAVA_HOME": "/usr" // OSX: /usr/bin/java
-          }
-      }
   },
   "command": "mvn",
   "isShellCommand": true,
@@ -138,7 +133,7 @@
         <directory>${project.basedir}/target</directory>
         <outputDirectory>${project.build.directory}/classes</outputDirectory>
         <finalName>${project.artifactId}-${project.version}</finalName>
-        <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
+        <testOutputDirectory>${project.build.directory}/classes</testOutputDirectory>
         <sourceDirectory>${project.basedir}/src/</sourceDirectory>
         <testSourceDirectory>${project.basedir}/test/</testSourceDirectory>
     </build>

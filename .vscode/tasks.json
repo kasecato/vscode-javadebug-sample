@@ -3,11 +3,6 @@
   "windows": {
   },
   "osx": {
-      "options": {
-          "env": {
-              "JAVA_HOME": "/usr" // OSX: /usr/bin/java
-          }
-      }
   },
   "command": "mvn",
   "isShellCommand": true,
