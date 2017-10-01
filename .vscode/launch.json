@@ -2,33 +2,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Java",
             "type": "java",
+            "name": "Debug (Launch)",
             "request": "launch",
-            "stopOnEntry": true,
-            "cwd": "${fileDirname}", // ${fileDirname}: the current opened file's dirname
-            "startupClass": "com.github.vscode.${fileBasename}", // ${fileBasename}: the current opened file's basename
-            "options": [
-                "-classpath",
-                "${workspaceRoot}/target/classes" // ${fileDirname}: the current opened file's dirname
-            ],
-            "jdkPath": "${env.JAVA_HOME}/bin", // ${env.JAVA_HOME}: reference environment variables
-            "preLaunchTask": "compile"
-        },
-        {
-            "name": "Java Console App",
-            "type": "java",
-            "request": "launch",
-            "stopOnEntry": true,
-            "cwd": "${fileDirname}",
-            "startupClass": "${fileBasename}",
-            "options": [
-                "-classpath",
-                "\"${fileDirname};.\""
-            ],
-            "externalConsole": true,
-            "jdkPath": "${env.JAVA_HOME}/bin",
-            "preLaunchTask": "compile"
+            "mainClass": "com.vscode.demo.Main",
+            "vmArgs": "",
+            "preLaunchTask": "compileJava"
         }
     ]
 }

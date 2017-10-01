@@ -4,46 +4,73 @@
 
 ### Install Extension
 
-* Don Jayamanne, Java Debugger, https://marketplace.visualstudio.com/items?itemName=donjayamanne.javaDebugger
-* George Fraser, Java Language Support, https://marketplace.visualstudio.com/items?itemName=georgewfraser.vscode-javac
+* Microsoft, Java Extension Pack, https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack
+
+### Setting the JDK
+
+* Oracle, Java SE Downloads, http://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+The path to the Java Development Kit is searched in the following order:
+
+* the `java.home` setting in VS Code settings (workspace then user settings)
+* the `JDK_HOME` environment variable
+* the `JAVA_HOME` environment variable
+* on the current system path
+
+### Gradle Configurations
+
+* build.gradle
+```groovy
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile('org.junit.jupiter:junit-jupiter-api:5.0.0')
+    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.0.0')
+}
+```
 
 ### Build Configurations
 
 * .vscode/tasks.json
 ```json
 {
-  "version": "0.1.0",
-  "windows": {
-  },
-  "osx": {
-  },
-  "command": "mvn",
-  "isShellCommand": true,
-  "args": [
-//    "-DskipTests"
-  ],
-  "showOutput": "always",
+  "version": "2.0.0",
+  "command": "./gradlew",
+  "echoCommand": true,
+  "type": "shell",
   "tasks": [
     {
-      "taskName": "clean"
+      "taskName": "compileJava",
+      "problemMatcher": []
     },
     {
-      "taskName": "compile"
+      "taskName": "build",
+      "problemMatcher": []
     },
     {
-      "taskName": "test"
+      "taskName": "test",
+      "problemMatcher": []
     },
     {
-      "taskName": "package"
-    },
-    {
-      "taskName": "verify"
-    },
-    {
-      "taskName": "spring-boot:run",
-      "args": [
-        "-Drun.profiles=dev"
-      ]
+      "taskName": "clean",
+      "problemMatcher": []
     }
   ]
 }
@@ -51,146 +78,32 @@
 
 ### Java Debugger Configurations
 
-* .vscode/tasks.json
+* .vscode/launch.json
 ```json
 {
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Java",
             "type": "java",
+            "name": "Debug (Launch)",
             "request": "launch",
-            "stopOnEntry": true,
-            "cwd": "${fileDirname}", // ${fileDirname}: the current opened file's dirname
-            "startupClass": "com.github.vscode.${fileBasename}", // ${fileBasename}: the current opened file's basename
-            "options": [
-                "-classpath",
-                "${workspaceRoot}/target/classes" // ${fileDirname}: the current opened file's dirname
-            ],
-            "jdkPath": "${env.JAVA_HOME}/bin", // ${env.JAVA_HOME}: reference environment variables
-            "preLaunchTask": "compile"
-        },
-        {
-            "name": "Java Console App",
-            "type": "java",
-            "request": "launch",
-            "stopOnEntry": true,
-            "cwd": "${fileDirname}",
-            "startupClass": "${fileBasename}",
-            "options": [
-                "-classpath",
-                "\"${fileDirname};.\""
-            ],
-            "externalConsole": true,
-            "jdkPath": "${env.JAVA_HOME}/bin",
-            "preLaunchTask": "compile"
+            "mainClass": "com.vscode.demo.Main",
+            "vmArgs": "",
+            "preLaunchTask": "compileJava"
         }
     ]
 }
 ```
 
-### Java Language Support Configurations
-
-* javaconfig.json
-```json
-{
-    "sourcePath": ["src"],
-    "classPathFile": "classpath.txt",
-    "outputDirectory": "target/classes"
-}
-```
-
-### Maven Configurations
-
-* pom.xml
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.github.vscode</groupId>
-    <artifactId>vscode-debugger</artifactId>
-    <version>0.1.0</version>
-    <name>vscode-debugger</name>
-
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.4</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-library</artifactId>
-            <version>1.3</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-    <build>
-        <directory>${project.basedir}/target</directory>
-        <outputDirectory>${project.build.directory}/classes</outputDirectory>
-        <finalName>${project.artifactId}-${project.version}</finalName>
-        <testOutputDirectory>${project.build.directory}/classes</testOutputDirectory>
-        <sourceDirectory>${project.basedir}/src/</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/test/</testSourceDirectory>
-    </build>
-    <profiles>
-        <profile>
-            <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>3.5.1</version>
-                        <configuration>
-                            <verbose>true</verbose>
-                            <fork>true</fork>
-                            <compilerVersion>1.8</compilerVersion>
-                            <source>1.8</source>
-                            <target>1.8</target>
-                            <meminitial>128m</meminitial>
-                            <maxmem>1024m</maxmem>
-                            <encoding>UTF-8</encoding>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <version>2.9</version>
-                        <executions>
-                            <execution>
-                                <id>build-classpath</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>build-classpath</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <outputFile>classpath.txt</outputFile>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-</project>
-```
-
-
 ### Java programming
 
-* src/com/github/k--kato/Main.java
+* src/main/java/com/vscode/demo/Main.java
 ```java
+package com.vscode.demo;
+
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Main {
 
@@ -198,9 +111,47 @@ public class Main {
 
         System.out.println("Hello VS Code!");
 
-        List<String> list = Arrays.asList("React", "Angular", "Ember");
-        list.stream().filter(x -> x.equals("Angular")).forEach(System.out::println);
+        final List<String> list = Arrays.asList("React", "Angular", "Vue");
+        list.stream()
+            .filter(x -> Objects.equals(x, "React"))
+            .forEach(System.out::println);
 
+    }
+
+}
+```
+
+* src/main/java/com/vscode/demo/MainTest.java
+```java
+package com.vscode.demo;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@Tag("main")
+public class MainTest {
+
+    @Test
+    @DisplayName("VS Code JUnit 5 test")
+    public void testMain() {
+
+        // arrange
+        final List<String> list = Arrays.asList("React", "Angular", "Vue");
+
+        // act
+        final String actual = list.stream()
+            .filter(x -> Objects.equals(x, "React"))
+            .findFirst()
+            .orElse(null);
+
+        // assert
+        assertEquals("React", actual, () -> "Main Succeed");
     }
 
 }
@@ -208,11 +159,14 @@ public class Main {
 
 ### Debugging
 
-1. Open Command Pallete ` Ctrl+Shift+p` ` 
-1. `Tasks Run Task`
-1. `compile`
 1. Open `Main.java`
 1. Press `F5`
+
+### Testing
+
+1. Open Command Pallete `cmd+shift+p` (macOS) or `ctrl+shift+p` (Windonws/Linux)
+1. `Tasks Run Task`
+1. `test`
 
 
 # Appendix
@@ -220,15 +174,21 @@ public class Main {
 ## Variable substitution
 
 > * ${workspaceRoot} the path of the folder opened in VS Code
+> * ${workspaceRootFolderName} the name of the folder opened in VS Code without any slashes (/)
 > * ${file} the current opened file
+> * ${relativeFile} the current opened file relative to workspaceRoot
 > * ${fileBasename} the current opened file's basename
+> * ${fileBasenameNoExtension} the current opened file's basename without the extension
 > * ${fileDirname} the current opened file's dirname
 > * ${fileExtname} the current opened file's extension
 > * ${cwd} the task runner's current working directory on startup
+> * ${lineNumber} the current selected line number in the active file
 
 
 # References
 
-1. Don Jayamanne, Java Debugger, https://marketplace.visualstudio.com/items?itemName=donjayamanne.javaDebugger
-1. George Fraser, Java Language Support, https://marketplace.visualstudio.com/items?itemName=georgewfraser.vscode-javac
+1. Visual Studio Code, Java in VS Code, https://code.visualstudio.com/docs/languages/java
+1. GitHub, Language Support for Java(TM) by Red Hat, https://github.com/redhat-developer/vscode-java
 1. Visual Studio Code, Integrate with External Tools via Tasks, Variable substitution, https://code.visualstudio.com/Docs/editor/tasks#_variable-substitution
+1. Gradle, Chapter 47. The Java Plugin, https://docs.gradle.org/current/userguide/java_plugin.html
+1. GitHub, JUnit 5 Samples, https://github.com/junit-team/junit5-samples
