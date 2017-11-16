@@ -1,72 +1,81 @@
 {
   "version": "2.0.0",
-  "command": "./gradlew",
   "echoCommand": true,
-  "type": "shell",
+  "command": "./gradlew",
+  "presentation": {
+    "echo": true,
+    "reveal": "always",
+    "focus": false,
+    "panel": "shared"
+  },
   "tasks": [
     {
-      "taskName": "compileJava",
-      "problemMatcher": []
+      "label": "compileJava",
+      "type": "shell"
     },
     {
-      "taskName": "processResources",
-      "problemMatcher": []
+      "label": "processResources",
+      "type": "shell"
     },
     {
-      "taskName": "classes",
-      "problemMatcher": []
+      "label": "classes",
+      "type": "shell"
     },
     {
-      "taskName": "compileJavaTest",
-      "problemMatcher": []
+      "label": "compileJavaTest",
+      "type": "shell"
     },
     {
-      "taskName": "processTestResources",
-      "problemMatcher": []
+      "label": "processTestResources",
+      "type": "shell"
     },
     {
-      "taskName": "testClasses",
-      "problemMatcher": []
+      "label": "testClasses",
+      "type": "shell"
     },
     {
-      "taskName": "jar",
-      "problemMatcher": []
+      "label": "jar",
+      "type": "shell"
     },
     {
-      "taskName": "javadoc",
-      "problemMatcher": []
+      "label": "javadoc",
+      "type": "shell"
     },
     {
-      "taskName": "test",
-      "problemMatcher": []
+      "label": "test",
+      "type": "shell"
     },
     {
-      "taskName": "uploadArchibes",
-      "problemMatcher": []
+      "label": "uploadArchibes",
+      "type": "shell"
     },
     {
-      "taskName": "clean",
-      "problemMatcher": []
+      "label": "clean",
+      "type": "shell"
     },
     {
-      "taskName": "assemble",
-      "problemMatcher": []
+      "label": "assemble",
+      "type": "shell"
     },
     {
-      "taskName": "check",
-      "problemMatcher": []
+      "label": "check",
+      "type": "shell"
     },
     {
-      "taskName": "build",
-      "problemMatcher": []
+      "label": "build",
+      "type": "shell",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     },
     {
-      "taskName": "buildNeeded",
-      "problemMatcher": []
+      "label": "buildNeeded",
+      "type": "shell"
     },
     {
-      "taskName": "buildDependents",
-      "problemMatcher": []
+      "label": "buildDependents",
+      "type": "shell"
     }
   ]
 }

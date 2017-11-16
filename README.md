@@ -26,7 +26,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
     }
 }
 
@@ -41,8 +41,8 @@ repositories {
 }
 
 dependencies {
-    testCompile('org.junit.jupiter:junit-jupiter-api:5.0.0')
-    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.0.0')
+    testCompile('org.junit.jupiter:junit-jupiter-api:5.0.2')
+    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.0.2')
 }
 ```
 
@@ -52,25 +52,34 @@ dependencies {
 ```json
 {
   "version": "2.0.0",
-  "command": "./gradlew",
   "echoCommand": true,
-  "type": "shell",
+  "command": "./gradlew",
+  "presentation": {
+    "echo": true,
+    "reveal": "always",
+    "focus": false,
+    "panel": "shared"
+  },
   "tasks": [
     {
-      "taskName": "compileJava",
-      "problemMatcher": []
+      "label": "compileJava",
+      "type": "shell"
     },
     {
-      "taskName": "build",
-      "problemMatcher": []
+      "label": "test",
+      "type": "shell"
     },
     {
-      "taskName": "test",
-      "problemMatcher": []
+      "label": "clean",
+      "type": "shell"
     },
     {
-      "taskName": "clean",
-      "problemMatcher": []
+      "label": "build",
+      "type": "shell",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
   ]
 }
