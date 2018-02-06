@@ -5,7 +5,6 @@
             "type": "java",
             "name": "Debug (Launch)",
             "request": "launch",
-            "mainClass": "com.vscode.demo.Main",
             "vmArgs": "",
             "preLaunchTask": "compileJava"
         }

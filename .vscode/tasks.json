@@ -43,7 +43,11 @@
     },
     {
       "label": "test",
-      "type": "shell"
+      "type": "shell",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
     },
     {
       "label": "uploadArchibes",

@@ -26,8 +26,12 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.3'
     }
+}
+
+repositories {
+    mavenCentral()
 }
 
 apply plugin: 'java'
@@ -36,13 +40,18 @@ apply plugin: 'org.junit.platform.gradle.plugin'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-repositories {
-    mavenCentral()
+compileTestJava {
+    options.compilerArgs += '-parameters'
 }
 
 dependencies {
-    testCompile('org.junit.jupiter:junit-jupiter-api:5.0.2')
-    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.0.2')
+    testCompile('org.junit.jupiter:junit-jupiter-api:5.0.3')
+    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.0.3')
+}
+
+task wrapper(type: Wrapper) {
+    description = 'Generates gradlew[.bat] scripts'
+    gradleVersion = '4.5.1'
 }
 ```
 
@@ -67,7 +76,11 @@ dependencies {
     },
     {
       "label": "test",
-      "type": "shell"
+      "type": "shell",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
     },
     {
       "label": "clean",
@@ -96,7 +109,6 @@ dependencies {
             "type": "java",
             "name": "Debug (Launch)",
             "request": "launch",
-            "mainClass": "com.vscode.demo.Main",
             "vmArgs": "",
             "preLaunchTask": "compileJava"
         }
@@ -174,7 +186,7 @@ public class MainTest {
 ### Testing
 
 1. Open Command Pallete `cmd+shift+p` (macOS) or `ctrl+shift+p` (Windonws/Linux)
-1. `Tasks Run Task`
+1. `Tasks Run Test Task`
 1. `test`
 
 
