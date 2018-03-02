@@ -21,21 +21,11 @@ The path to the Java Development Kit is searched in the following order:
 
 * build.gradle
 ```groovy
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.3'
-    }
-}
-
 repositories {
     mavenCentral()
 }
 
 apply plugin: 'java'
-apply plugin: 'org.junit.platform.gradle.plugin'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -44,14 +34,18 @@ compileTestJava {
     options.compilerArgs += '-parameters'
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
-    testCompile('org.junit.jupiter:junit-jupiter-api:5.0.3')
-    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.0.3')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
 }
 
 task wrapper(type: Wrapper) {
     description = 'Generates gradlew[.bat] scripts'
-    gradleVersion = '4.5.1'
+    gradleVersion = '4.6'
 }
 ```
 
@@ -156,11 +150,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Tag("main")
-public class MainTest {
+class MainTest {
 
     @Test
     @DisplayName("VS Code JUnit 5 test")
-    public void testMain() {
+    void testMain() {
 
         // arrange
         final List<String> list = Arrays.asList("React", "Angular", "Vue");
@@ -213,3 +207,4 @@ public class MainTest {
 1. Visual Studio Code, Integrate with External Tools via Tasks, Variable substitution, https://code.visualstudio.com/Docs/editor/tasks#_variable-substitution
 1. Gradle, Chapter 47. The Java Plugin, https://docs.gradle.org/current/userguide/java_plugin.html
 1. GitHub, JUnit 5 Samples, https://github.com/junit-team/junit5-samples
+1. Gradle, Gradle 4.6 Release Notes - JUnit 5 support, https://docs.gradle.org/4.6/release-notes.html#junit-5-support

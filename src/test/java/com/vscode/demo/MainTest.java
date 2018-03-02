@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Tag("main")
-public class MainTest {
+class MainTest {
 
     @Test
     @DisplayName("VS Code JUnit 5 test")
-    public void testMain() {
+    void testMain() {
 
         // arrange
         final List<String> list = Arrays.asList("React", "Angular", "Vue");
