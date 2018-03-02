@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "echoCommand": true,
-  "command": "./gradlew",
+  "command": "./mvnw",
   "presentation": {
     "echo": true,
     "reveal": "always",
@@ -10,36 +10,20 @@
   },
   "tasks": [
     {
-      "label": "compileJava",
+      "label": "clean",
       "type": "shell"
     },
     {
-      "label": "processResources",
+      "label": "validate",
       "type": "shell"
     },
     {
-      "label": "classes",
-      "type": "shell"
-    },
-    {
-      "label": "compileJavaTest",
-      "type": "shell"
-    },
-    {
-      "label": "processTestResources",
-      "type": "shell"
-    },
-    {
-      "label": "testClasses",
-      "type": "shell"
-    },
-    {
-      "label": "jar",
-      "type": "shell"
-    },
-    {
-      "label": "javadoc",
-      "type": "shell"
+      "label": "compile",
+      "type": "shell",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     },
     {
       "label": "test",
@@ -50,35 +34,19 @@
       }
     },
     {
-      "label": "uploadArchibes",
+      "label": "package",
       "type": "shell"
     },
     {
-      "label": "clean",
+      "label": "verify",
       "type": "shell"
     },
     {
-      "label": "assemble",
+      "label": "install",
       "type": "shell"
     },
     {
-      "label": "check",
-      "type": "shell"
-    },
-    {
-      "label": "build",
-      "type": "shell",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "buildNeeded",
-      "type": "shell"
-    },
-    {
-      "label": "buildDependents",
+      "label": "jetty:run",
       "type": "shell"
     }
   ]

@@ -17,36 +17,89 @@ The path to the Java Development Kit is searched in the following order:
 * the `JAVA_HOME` environment variable
 * on the current system path
 
-### Gradle Configurations
+### Maven Configurations
 
-* build.gradle
-```groovy
-repositories {
-    mavenCentral()
-}
+* pom.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-apply plugin: 'java'
+    <groupId>org.example</groupId>
+    <artifactId>hello-world</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>Jetty HelloWorld WebApp</name>
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <jettyVersion>9.4.8.v20171121</jettyVersion>
+        <junit.jupiter.version>5.1.0</junit.jupiter.version>
+        <junit.platform.version>1.1.0</junit.platform.version>
+    </properties>
 
-compileTestJava {
-    options.compilerArgs += '-parameters'
-}
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jettyVersion}</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <includes>
+                        <include>**/Test*.java</include>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                        <include>**/*TestCase.java</include>
+                    </includes>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>${junit.platform.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 
-test {
-    useJUnitPlatform()
-}
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
-}
+</project>
 
-task wrapper(type: Wrapper) {
-    description = 'Generates gradlew[.bat] scripts'
-    gradleVersion = '4.6'
-}
 ```
 
 ### Build Configurations
@@ -56,7 +109,7 @@ task wrapper(type: Wrapper) {
 {
   "version": "2.0.0",
   "echoCommand": true,
-  "command": "./gradlew",
+  "command": "./mvnw",
   "presentation": {
     "echo": true,
     "reveal": "always",
@@ -65,8 +118,20 @@ task wrapper(type: Wrapper) {
   },
   "tasks": [
     {
-      "label": "compileJava",
+      "label": "clean",
       "type": "shell"
+    },
+    {
+      "label": "validate",
+      "type": "shell"
+    },
+    {
+      "label": "compile",
+      "type": "shell",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     },
     {
       "label": "test",
@@ -77,16 +142,20 @@ task wrapper(type: Wrapper) {
       }
     },
     {
-      "label": "clean",
+      "label": "package",
       "type": "shell"
     },
     {
-      "label": "build",
-      "type": "shell",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
+      "label": "verify",
+      "type": "shell"
+    },
+    {
+      "label": "install",
+      "type": "shell"
+    },
+    {
+      "label": "jetty:run",
+      "type": "shell"
     }
   ]
 }
@@ -101,10 +170,10 @@ task wrapper(type: Wrapper) {
     "configurations": [
         {
             "type": "java",
-            "name": "Debug (Launch)",
-            "request": "launch",
-            "vmArgs": "",
-            "preLaunchTask": "compileJava"
+            "name": "Debug (Attach)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 8000
         }
     ]
 }
@@ -112,29 +181,50 @@ task wrapper(type: Wrapper) {
 
 ### Java programming
 
-* src/main/java/com/vscode/demo/Main.java
+* src/main/org/example/HelloServlet.java
 ```java
-package com.vscode.demo;
+package org.example;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-public class Main {
+public class HelloServlet extends HttpServlet {
 
-    public static void main(String[] args) {
-
-        System.out.println("Hello VS Code!");
-
-        final List<String> list = Arrays.asList("React", "Angular", "Vue");
-        list.stream()
-            .filter(x -> Objects.equals(x, "React"))
-            .forEach(System.out::println);
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().println("<h1>Hello Servlet</h1>");
+        response.getWriter().println("session=" + request.getSession(true).getId());
     }
 
 }
 ```
+
+* src/webapp/WEB-INF/web.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+   xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+   metadata-complete="false"
+   version="3.1">
+
+  <servlet>
+    <servlet-name>Hello</servlet-name>
+    <servlet-class>org.example.HelloServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Hello</servlet-name>
+    <url-pattern>/hello/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>
+```
+
 
 * src/main/java/com/vscode/demo/MainTest.java
 ```java
@@ -174,7 +264,14 @@ class MainTest {
 
 ### Debugging
 
-1. Open `Main.java`
+1. Set debugger 
+```bash
+export MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000 -Xnoagent -Djava.compiler=NONE"
+```
+1. Run jetty
+```bash
+./mvnw jetty:run
+```
 1. Press `F5`
 
 ### Testing
@@ -208,3 +305,4 @@ class MainTest {
 1. Gradle, Chapter 47. The Java Plugin, https://docs.gradle.org/current/userguide/java_plugin.html
 1. GitHub, JUnit 5 Samples, https://github.com/junit-team/junit5-samples
 1. Gradle, Gradle 4.6 Release Notes - JUnit 5 support, https://docs.gradle.org/4.6/release-notes.html#junit-5-support
+1. Maven, Configuring the Jetty Maven Plugin, https://www.eclipse.org/jetty/documentation/9.4.x/jetty-maven-plugin.html

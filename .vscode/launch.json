@@ -3,10 +3,10 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Debug (Launch)",
-            "request": "launch",
-            "vmArgs": "",
-            "preLaunchTask": "compileJava"
+            "name": "Debug (Attach)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 8000
         }
     ]
 }
