@@ -39,13 +39,13 @@ test {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.1'
 }
 
 task wrapper(type: Wrapper) {
     description = 'Generates gradlew[.bat] scripts'
-    gradleVersion = '4.6'
+    gradleVersion = '4.7'
 }
 ```
 
@@ -117,20 +117,17 @@ task wrapper(type: Wrapper) {
 package com.vscode.demo;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class Main {
 
     public static void main(String[] args) {
-
         System.out.println("Hello VS Code!");
 
-        final List<String> list = Arrays.asList("React", "Angular", "Vue");
-        list.stream()
+        Arrays.asList("React", "Angular", "Vue")
+            .stream()
             .filter(x -> Objects.equals(x, "React"))
             .forEach(System.out::println);
-
     }
 
 }
@@ -163,7 +160,7 @@ class MainTest {
         final String actual = list.stream()
             .filter(x -> Objects.equals(x, "React"))
             .findFirst()
-            .orElse(null);
+            .orElseThrow(IllegalArgumentException::new);
 
         // assert
         assertEquals("React", actual, () -> "Main Succeed");
@@ -182,23 +179,6 @@ class MainTest {
 1. Open Command Pallete `cmd+shift+p` (macOS) or `ctrl+shift+p` (Windonws/Linux)
 1. `Tasks Run Test Task`
 1. `test`
-
-
-# Appendix
-
-## Variable substitution
-
-> * ${workspaceRoot} the path of the folder opened in VS Code
-> * ${workspaceRootFolderName} the name of the folder opened in VS Code without any slashes (/)
-> * ${file} the current opened file
-> * ${relativeFile} the current opened file relative to workspaceRoot
-> * ${fileBasename} the current opened file's basename
-> * ${fileBasenameNoExtension} the current opened file's basename without the extension
-> * ${fileDirname} the current opened file's dirname
-> * ${fileExtname} the current opened file's extension
-> * ${cwd} the task runner's current working directory on startup
-> * ${lineNumber} the current selected line number in the active file
-
 
 # References
 

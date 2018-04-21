@@ -23,7 +23,7 @@ class MainTest {
         final String actual = list.stream()
             .filter(x -> Objects.equals(x, "React"))
             .findFirst()
-            .orElse(null);
+            .orElseThrow(IllegalArgumentException::new);
 
         // assert
         assertEquals("React", actual, () -> "Main Succeed");
