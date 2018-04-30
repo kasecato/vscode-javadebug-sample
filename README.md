@@ -1,5 +1,7 @@
 # Java Debugging in Visual Studio Code 
 
+- [Maven + Jetty version](https://github.com/kasecato/vscode-javadebug-sample/tree/maven-jetty)
+
 ## Getting Started
 
 ### Install Extension
@@ -39,14 +41,16 @@ test {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.2.0'
 }
 
 task wrapper(type: Wrapper) {
     description = 'Generates gradlew[.bat] scripts'
     gradleVersion = '4.7'
 }
+
 ```
 
 ### Build Configurations
@@ -116,16 +120,15 @@ task wrapper(type: Wrapper) {
 ```java
 package com.vscode.demo;
 
-import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class Main {
 
     public static void main(String[] args) {
         System.out.println("Hello VS Code!");
 
-        Arrays.asList("React", "Angular", "Vue")
-            .stream()
+        Stream.of("React", "Angular", "Vue")
             .filter(x -> Objects.equals(x, "React"))
             .forEach(System.out::println);
     }
