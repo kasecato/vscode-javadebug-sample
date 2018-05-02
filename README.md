@@ -1,5 +1,7 @@
 # Java Debugging in Visual Studio Code 
 
+- [Gradle version](https://github.com/kasecato/vscode-javadebug-sample)
+
 ## Getting Started
 
 ### Install Extension
@@ -35,9 +37,9 @@ The path to the Java Development Kit is searched in the following order:
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <jettyVersion>9.4.8.v20171121</jettyVersion>
-        <junit.jupiter.version>5.1.0</junit.jupiter.version>
-        <junit.platform.version>1.1.0</junit.platform.version>
+        <jettyVersion>9.4.9.v20180320</jettyVersion>
+        <junit.jupiter.version>5.2.0</junit.jupiter.version>
+        <junit.platform.version>1.2.0</junit.platform.version>
     </properties>
 
     <build>
@@ -57,20 +59,17 @@ The path to the Java Development Kit is searched in the following order:
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                    <includes>
-                        <include>**/Test*.java</include>
-                        <include>**/*Test.java</include>
-                        <include>**/*Tests.java</include>
-                        <include>**/*TestCase.java</include>
-                    </includes>
-                </configuration>
+                <version>2.21.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.junit.platform</groupId>
                         <artifactId>junit-platform-surefire-provider</artifactId>
                         <version>${junit.platform.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>${junit.jupiter.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -85,21 +84,20 @@ The path to the Java Development Kit is searched in the following order:
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.jupiter.version}</version>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>${junit.platform.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
+            <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
 </project>
-
 ```
 
 ### Build Configurations
@@ -264,38 +262,28 @@ class MainTest {
 
 ### Debugging
 
-1. Set debugger 
+1. Set debugger
 ```bash
 export MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000 -Xnoagent -Djava.compiler=NONE"
 ```
-1. Run jetty
+
+2. Run jetty
 ```bash
 ./mvnw jetty:run
 ```
-1. Press `F5`
+
+3. Press `F5`
+
+4. Open web
+```bash
+open http://localhost:8080/hello
+```
 
 ### Testing
 
 1. Open Command Pallete `cmd+shift+p` (macOS) or `ctrl+shift+p` (Windonws/Linux)
 1. `Tasks Run Test Task`
 1. `test`
-
-
-# Appendix
-
-## Variable substitution
-
-> * ${workspaceRoot} the path of the folder opened in VS Code
-> * ${workspaceRootFolderName} the name of the folder opened in VS Code without any slashes (/)
-> * ${file} the current opened file
-> * ${relativeFile} the current opened file relative to workspaceRoot
-> * ${fileBasename} the current opened file's basename
-> * ${fileBasenameNoExtension} the current opened file's basename without the extension
-> * ${fileDirname} the current opened file's dirname
-> * ${fileExtname} the current opened file's extension
-> * ${cwd} the task runner's current working directory on startup
-> * ${lineNumber} the current selected line number in the active file
-
 
 # References
 
