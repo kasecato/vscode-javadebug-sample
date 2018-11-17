@@ -48,7 +48,7 @@ dependencies {
 
 task wrapper(type: Wrapper) {
     description = 'Generates gradlew[.bat] scripts'
-    gradleVersion = '4.3.1'
+    gradleVersion = '4.10.2'
 }
 
 ```
