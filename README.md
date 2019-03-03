@@ -10,7 +10,12 @@
 
 ### Setting the JDK
 
-* Oracle, Java SE Downloads, http://www.oracle.com/technetwork/java/javase/downloads/index.html
+* AdoptOpenJDK, https://adoptopenjdk.net/
+* Amazon, Corretto 8, https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html
+* Amazon, Corretto 11, https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html
+* Azule Systems, Zule OpenJDK, https://www.azul.com/downloads/
+* OpenJDK, https://jdk.java.net/
+* Red Hat, OpenJDK, https://developers.redhat.com/products/openjdk/download/
 
 The path to the Java Development Kit is searched in the following order:
 
@@ -37,10 +42,37 @@ The path to the Java Development Kit is searched in the following order:
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <jettyVersion>9.4.14.v20181114</jettyVersion>
-        <junit.jupiter.version>5.3.1</junit.jupiter.version>
-        <junit.platform.version>1.3.1</junit.platform.version>
+        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+        <jettyVersion>9.4.15.v20190215</jettyVersion>
+        <junit.jupiter.version>5.4.0</junit.jupiter.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -60,43 +92,9 @@ The path to the Java Development Kit is searched in the following order:
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.platform</groupId>
-                        <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>${junit.platform.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>${junit.jupiter.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>${junit.platform.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
 </project>
 ```
 
