@@ -10,7 +10,12 @@
 
 ### Setting the JDK
 
-* Oracle, Java SE Downloads, http://www.oracle.com/technetwork/java/javase/downloads/index.html
+* AdoptOpenJDK, https://adoptopenjdk.net/
+* Amazon, Corretto 8, https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html
+* Amazon, Corretto 11, https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html
+* Azule Systems, Zule OpenJDK, https://www.azul.com/downloads/
+* OpenJDK, https://jdk.java.net/
+* Red Hat, OpenJDK, https://developers.redhat.com/products/openjdk/download/
 
 The path to the Java Development Kit is searched in the following order:
 
@@ -41,16 +46,13 @@ test {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.3.1'
+    testImplementation('org.junit.jupiter:junit-jupiter:5.4.0')
 }
 
-task wrapper(type: Wrapper) {
-    description = 'Generates gradlew[.bat] scripts'
-    gradleVersion = '4.10.2'
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
+    gradleVersion = '5.2.1'
 }
-
 ```
 
 ### Build Configurations
@@ -107,8 +109,12 @@ task wrapper(type: Wrapper) {
             "type": "java",
             "name": "Debug (Launch)",
             "request": "launch",
-            "vmArgs": "",
-            "preLaunchTask": "compileJava"
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "preLaunchTask": "compileJava",
+            "mainClass": "com.vscode.demo.Main",
+            "args": ""
         }
     ]
 }
