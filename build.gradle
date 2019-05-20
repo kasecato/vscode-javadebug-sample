@@ -16,10 +16,10 @@ test {
 }
 
 dependencies {
-    testImplementation('org.junit.jupiter:junit-jupiter:5.4.0')
+    testImplementation('org.junit.jupiter:junit-jupiter:5.4.2')
 }
 
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
-    gradleVersion = '5.2.1'
+    gradleVersion = '5.4.1'
 }
