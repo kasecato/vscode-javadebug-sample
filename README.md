@@ -43,15 +43,15 @@ The path to the Java Development Kit is searched in the following order:
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-        <jettyVersion>9.4.15.v20190215</jettyVersion>
-        <junit.jupiter.version>5.4.0</junit.jupiter.version>
+        <jettyVersion>9.4.27.v20200227</jettyVersion>
+        <junit.jupiter.version>5.6.1</junit.jupiter.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -78,7 +78,7 @@ The path to the Java Development Kit is searched in the following order:
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -91,7 +91,7 @@ The path to the Java Development Kit is searched in the following order:
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.1</version>
+                <version>2.22.2</version>
             </plugin>
         </plugins>
     </build>
@@ -115,14 +115,17 @@ The path to the Java Development Kit is searched in the following order:
   "tasks": [
     {
       "label": "clean",
+      "args": ["clean"],
       "type": "shell"
     },
     {
       "label": "validate",
+      "args": ["validate"],
       "type": "shell"
     },
     {
       "label": "compile",
+      "args": ["compile"],
       "type": "shell",
       "group": {
         "kind": "build",
@@ -131,6 +134,7 @@ The path to the Java Development Kit is searched in the following order:
     },
     {
       "label": "test",
+      "args": ["test"],
       "type": "shell",
       "group": {
         "kind": "test",
@@ -139,18 +143,22 @@ The path to the Java Development Kit is searched in the following order:
     },
     {
       "label": "package",
+      "args": ["package"],
       "type": "shell"
     },
     {
       "label": "verify",
+      "args": ["verify"],
       "type": "shell"
     },
     {
       "label": "install",
+      "args": ["install"],
       "type": "shell"
     },
     {
       "label": "jetty:run",
+      "args": ["jetty:run"],
       "type": "shell"
     }
   ]

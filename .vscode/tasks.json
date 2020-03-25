@@ -11,14 +11,17 @@
   "tasks": [
     {
       "label": "clean",
+      "args": ["clean"],
       "type": "shell"
     },
     {
       "label": "validate",
+      "args": ["validate"],
       "type": "shell"
     },
     {
       "label": "compile",
+      "args": ["compile"],
       "type": "shell",
       "group": {
         "kind": "build",
@@ -27,6 +30,7 @@
     },
     {
       "label": "test",
+      "args": ["test"],
       "type": "shell",
       "group": {
         "kind": "test",
@@ -35,18 +39,22 @@
     },
     {
       "label": "package",
+      "args": ["package"],
       "type": "shell"
     },
     {
       "label": "verify",
+      "args": ["verify"],
       "type": "shell"
     },
     {
       "label": "install",
+      "args": ["install"],
       "type": "shell"
     },
     {
       "label": "jetty:run",
+      "args": ["jetty:run"],
       "type": "shell"
     }
   ]
