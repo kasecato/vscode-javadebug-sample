@@ -10,9 +10,8 @@
 
 ### Setting the JDK
 
-* AdoptOpenJDK, https://adoptopenjdk.net/
-* Amazon, Corretto 8, https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html
-* Amazon, Corretto 11, https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html
+* Temurin, https://adoptium.net/
+* Amazon, Corretto 17, https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html
 * Azule Systems, Zule OpenJDK, https://www.azul.com/downloads/
 * OpenJDK, https://jdk.java.net/
 * Red Hat, OpenJDK, https://developers.redhat.com/products/openjdk/download/
@@ -34,8 +33,8 @@ repositories {
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 17
+targetCompatibility = 17
 
 compileTestJava {
     options.compilerArgs += '-parameters'
@@ -46,12 +45,7 @@ test {
 }
 
 dependencies {
-    testImplementation('org.junit.jupiter:junit-jupiter:5.6.1')
-}
-
-wrapper {
-    distributionType = Wrapper.DistributionType.ALL
-    gradleVersion = '6.3'
+    testImplementation('org.junit.jupiter:junit-jupiter:5.9.2')
 }
 ```
 
